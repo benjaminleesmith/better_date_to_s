@@ -12,4 +12,8 @@ class Date
   }
 end
 
-set_date_formats
+class Railtie < Rails::Railtie
+  initializer 'better_date_to_s' do
+    set_date_formats_for(Rails.env, Rails.root.to_s)
+  end
+end
